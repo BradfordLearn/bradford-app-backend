@@ -1,7 +1,3 @@
-Required Environment Variables (Secrets) on Render:
-GEMINI_API_KEY
-EMAIL_USER
-EMAIL_PASS
 const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
