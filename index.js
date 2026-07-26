@@ -19,7 +19,7 @@ app.post('/api/next-question', async (req, res) => {
     try {
         const payload = req.body;
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-1.5-flash',
             contents: JSON.stringify(payload),
             config: {
                 // TODO: Inject exact prompt from Section 3A below here
