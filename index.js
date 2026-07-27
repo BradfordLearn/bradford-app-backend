@@ -39,7 +39,7 @@ app.post('/api/finish-exam', async (req, res) => {
     try {
         const { student_profile, test_history } = req.body; 
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: 'gemini-1.5-flash',
             contents: JSON.stringify({ student_profile, test_history }),
             config: {
                 // TODO: Inject exact prompt from Section 3B below here
