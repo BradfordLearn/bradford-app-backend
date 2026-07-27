@@ -19,7 +19,7 @@ app.post('/api/next-question', async (req, res) => {
     try {
         const payload = req.body;
         const response = await ai.models.generateContent({
-            model: 'gemini-3.5-flash',
+            model: 'gemini-3.6-flash',
             contents: JSON.stringify(payload),
             config: {
                 // The Brain's specific instructions for asking questions
@@ -53,7 +53,7 @@ app.post('/api/finish-exam', async (req, res) => {
     try {
         const { student_profile, test_history } = req.body; 
         const response = await ai.models.generateContent({
-            model: 'gemini-3.5-flash', 
+            model: 'gemini-3.6-flash', 
             contents: JSON.stringify({ student_profile, test_history }),
             config: {
                 // The Brain's specific instructions for generating the final report
