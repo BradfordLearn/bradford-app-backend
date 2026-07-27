@@ -22,7 +22,6 @@ app.post('/api/next-question', async (req, res) => {
             model: 'gemini-3.6-flash',
             contents: JSON.stringify(payload),
             config: {
-                // The Brain's specific instructions for asking questions
                 systemInstruction: `ROLE AND OBJECTIVE:
 You are the Bradford Learning Adaptive Assessment Engine. Your task is to generate a single, highly rigorous, standard-aligned multiple-choice question.
 
@@ -56,7 +55,6 @@ app.post('/api/finish-exam', async (req, res) => {
             model: 'gemini-3.6-flash', 
             contents: JSON.stringify({ student_profile, test_history }),
             config: {
-                // The Brain's specific instructions for generating the final report
                 systemInstruction: `ROLE AND OBJECTIVE:
 You are the Bradford Learning Diagnostic Engine. You will receive a payload containing a student's entire multi-subject test history. Generate two distinct HTML outputs:
 
