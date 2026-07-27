@@ -19,10 +19,10 @@ app.post('/api/next-question', async (req, res) => {
     try {
         const payload = req.body;
         const response = await ai.models.generateContent({
-            model: 'gemini-1.5-flash',
+            model: 'gemini-2.5-flash', // <-- FIXED: Updated to 2.5
             contents: JSON.stringify(payload),
             config: {
-                // TODO: Inject exact prompt from Section 3A below here
+                // !!! CODY MUST PASTE THE ENTIRE TEXT OF PROMPT 1 HERE !!!
                 systemInstruction: "You are the Bradford Learning Adaptive Assessment Engine...",
                 responseMimeType: "application/json"
             }
@@ -39,17 +39,17 @@ app.post('/api/finish-exam', async (req, res) => {
     try {
         const { student_profile, test_history } = req.body; 
         const response = await ai.models.generateContent({
-            model: 'gemini-1.5-flash',
+            model: 'gemini-2.5-flash', // <-- FIXED: Deleted the duplicate line!
             contents: JSON.stringify({ student_profile, test_history }),
             config: {
-                // TODO: Inject exact prompt from Section 3B below here
+                // !!! CODY MUST PASTE THE ENTIRE TEXT OF PROMPT 2 HERE !!!
                 systemInstruction: "You are the Bradford Learning Diagnostic Engine...",
                 responseMimeType: "application/json"
             }
         });
 
         const geminiData = JSON.parse(response.text);
-        
+
         let file = { content: geminiData.pdf_ready_html };
         let options = { format: 'A4', printBackground: true, margin: { top: "20px", bottom: "20px" } };
         const pdfBuffer = await htmlToPdf.generatePdf(file, options);
@@ -67,7 +67,7 @@ app.post('/api/finish-exam', async (req, res) => {
         };
 
         await transporter.sendMail(mailOptions);
-        
+
         res.json({ success: true, student_ui_html: geminiData.student_friendly_ui_html });
     } catch (error) {
         console.error(error);
@@ -77,4 +77,3 @@ app.post('/api/finish-exam', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Nervous System running on port ${PORT}`));
-
